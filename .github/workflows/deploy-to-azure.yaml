@@ -1,6 +1,7 @@
 name: 'Deploy to azure'
 
 on:
+  workflow_dispatch:
   push:
     branches:
       - main
