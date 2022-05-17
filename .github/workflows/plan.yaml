@@ -1,0 +1,13 @@
+name: 'Plan Azure'
+
+on:
+  workflow_dispatch:
+
+permissions:
+      id-token: write
+      contents: read
+
+jobs:
+  Terraform:
+    uses: perrness/reusable-workflows/.github/workflows/azure-plan.yaml@main
+    secrets: inherit

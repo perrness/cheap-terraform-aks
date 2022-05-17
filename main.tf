@@ -1,33 +1,13 @@
-terraform {
-  backend "azurerm" {
-    resource_group_name  = "tamopstfstates"
-    storage_account_name = "pertamopstf"
-    container_name       = "tfstatedevops"
-    key                  = "tfstatekubernetes.tfstate"
-  }
-
-  required_providers {
-    azurerm = {
-      source  = "hashicorp/azurerm"
-      version = "=2.48.0"
-    }
-  }
-}
-
-provider "azurerm" {
-  features {}
-}
-
-resource "azurerm_resource_group" "rg" {
-  name     = "learnk8sResourceGroup"
+resource "azurerm_resource_group" "main" {
+  name     = "aks-rg"
   location = "northeurope"
 }
 
 resource "azurerm_kubernetes_cluster" "cluster" {
-  name                = "learnk8scluster"
-  location            = azurerm_resource_group.rg.location
-  resource_group_name = azurerm_resource_group.rg.name
-  dns_prefix          = "learnk8scluster"
+  name                = "personal-aks"
+  location            = azurerm_resource_group.main.location
+  resource_group_name = azurerm_resource_group.main.name
+  dns_prefix          = "personal-aks"
 
   default_node_pool {
     name       = "default"
