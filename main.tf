@@ -18,10 +18,4 @@ resource "azurerm_kubernetes_cluster" "cluster" {
   identity {
     type = "SystemAssigned"
   }
-
-  addon_profile {
-    http_application_routing {
-      enabled = true
-    }
-  }
 }
