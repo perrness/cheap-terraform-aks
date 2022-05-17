@@ -54,6 +54,8 @@ resource "azurerm_kubernetes_cluster" "cluster" {
     network_mode      = "transparent"
     network_policy    = "calico"
     load_balancer_sku = "basic"
+    service_cidr      = "10.0.1.0/24"
+    dns_service_ip    = "10.0.1.12"
   }
 
   identity {
