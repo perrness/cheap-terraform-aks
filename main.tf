@@ -40,8 +40,8 @@ resource "azurerm_kubernetes_cluster" "cluster" {
     node_count          = "1"
     max_pods            = 125
 
-    os_disk_size = "32gb"
-    os_disk_type = "Ephemeral"
+    os_disk_size_gb = "32gb"
+    os_disk_type    = "Ephemeral"
 
     pod_subnet_id = data.azurerm_subnet.subnet1.id
 
