@@ -1,10 +1,5 @@
 terraform {
-  backend "azurerm" {
-    resource_group_name  = "tamopstfstates"
-    storage_account_name = "pertamopstf"
-    container_name       = "tfstatedevops"
-    key                  = "tfstatekubernetes.tfstate"
-  }
+  backend "azurerm" {}
 
   required_providers {
     azurerm = {

@@ -19,10 +19,6 @@ resource "azurerm_kubernetes_cluster" "cluster" {
     type = "SystemAssigned"
   }
 
-  tags = {
-    Environment = "Test"
-  }
-
   addon_profile {
     http_application_routing {
       enabled = true
