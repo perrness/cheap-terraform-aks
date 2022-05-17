@@ -1,0 +1,13 @@
+name: 'Plan And Apply'
+
+on:
+  workflow_dispatch:
+
+permissions:
+      id-token: write
+      contents: read
+
+jobs:
+  Terraform:
+    uses: perrness/reusable-workflows/.github/workflows/azure-plan-and-apply.yaml@main
+    secrets: inherit
