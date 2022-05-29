@@ -56,7 +56,7 @@ resource "azurerm_kubernetes_cluster" "cluster" {
     load_balancer_sku = "basic"
     service_cidr      = "10.0.1.0/24"
     dns_service_ip    = "10.0.1.12"
-    ip_versions       = "IPv4"
+    ip_versions       = ["IPv4"]
   }
 
   identity {
