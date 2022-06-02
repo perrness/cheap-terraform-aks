@@ -3,6 +3,11 @@ resource "azurerm_resource_group" "main" {
   location = "northeurope"
 }
 
+resource "azurerm_resource_group" "node_rg" {
+  name     = "per-aks-node-rg"
+  location = "northeurope"
+}
+
 data "azurerm_subnet" "subnet1" {
   name                 = "per-subnet-1"
   virtual_network_name = "per-virtual-network"
@@ -16,6 +21,8 @@ resource "azurerm_kubernetes_cluster" "cluster" {
   dns_prefix          = "per-aks"
 
   kubernetes_version = "1.25"
+
+  node_resource_group = azurerm_resource_group.node_rg.name
 
   open_service_mesh_enabled = false
   private_cluster_enabled   = false
