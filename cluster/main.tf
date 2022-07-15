@@ -18,7 +18,7 @@ resource "azurerm_kubernetes_cluster" "cluster" {
   name                = "cheap-aks"
   location            = azurerm_resource_group.main.location
   resource_group_name = azurerm_resource_group.main.name
-  dns_prefix          = "cheap-aks"
+  dns_prefix          = "cheap-aks-dns"
 
   kubernetes_version = "1.25"
 
