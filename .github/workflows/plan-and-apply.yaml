@@ -1,4 +1,4 @@
-name: 'Plan And Apply'
+name: 'Cluster - Plan and Apply'
 
 on:
   workflow_dispatch:
@@ -11,5 +11,5 @@ jobs:
   Terraform:
     uses: perrness/reusable-workflows/.github/workflows/azure-plan-and-apply.yaml@main
     with:
-      working_directory: /cluster
+      working_directory: ./cluster
     secrets: inherit
