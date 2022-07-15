@@ -1,24 +1,24 @@
 resource "azurerm_resource_group" "main" {
-  name     = "per-aks-rg"
+  name     = "cheap-aks-rg"
   location = "northeurope"
 }
 
 resource "azurerm_resource_group" "node_rg" {
-  name     = "per-aks-node-rg"
+  name     = "cheap-aks-node-rg"
   location = "northeurope"
 }
 
 data "azurerm_subnet" "subnet1" {
-  name                 = "per-subnet-1"
-  virtual_network_name = "per-virtual-network"
-  resource_group_name  = "per-virtual-network-rg"
+  name                 = "cheap-subnet-1"
+  virtual_network_name = "cheap-virtual-network"
+  resource_group_name  = "cheap-virtual-network-rg"
 }
 
 resource "azurerm_kubernetes_cluster" "cluster" {
-  name                = "per-aks"
+  name                = "cheap-aks"
   location            = azurerm_resource_group.main.location
   resource_group_name = azurerm_resource_group.main.name
-  dns_prefix          = "per-aks"
+  dns_prefix          = "cheap-aks"
 
   kubernetes_version = "1.25"
 
@@ -59,7 +59,7 @@ resource "azurerm_kubernetes_cluster" "cluster" {
   network_profile {
     network_plugin    = "azure"
     network_mode      = "transparent"
-    network_policy    = "calico"
+    network_policy    = "azure"
     load_balancer_sku = "basic"
     service_cidr      = "10.0.1.0/24"
     dns_service_ip    = "10.0.1.12"
