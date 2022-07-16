@@ -8,6 +8,11 @@ resource "azurerm_resource_group" "node_rg" {
   location = "northeurope"
 }
 
+data "azurerm_virtual_network" "vnet" {
+  name                = var.vnet_name
+  resource_group_name = "${var.vnet_name}-rg"
+}
+
 data "azurerm_subnet" "subnet1" {
   name                 = "${var.vnet_name}-subnet-1"
   virtual_network_name = var.vnet_name
@@ -53,7 +58,7 @@ resource "azurerm_kubernetes_cluster" "cluster" {
     os_disk_type    = "Managed"
 
     pod_subnet_id  = data.azurerm_subnet.subnet1.id
-    vnet_subnet_id = data.azurerm_subnet.subnet1.id
+    vnet_subnet_id = data.azurerm_virtual_network.vnet.id
 
     type              = "VirtualMachineScaleSets"
     ultra_ssd_enabled = false
