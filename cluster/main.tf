@@ -3,10 +3,10 @@ resource "azurerm_resource_group" "main" {
   location = "northeurope"
 }
 
-resource "azurerm_resource_group" "node_rg" {
-  name     = "${var.aks_name}-node-rg"
-  location = "northeurope"
-}
+# resource "azurerm_resource_group" "node_rg" {
+#   name     = "${var.aks_name}-node-rg"
+#   location = "northeurope"
+# }
 
 # data "azurerm_virtual_network" "vnet" {
 #   name                = var.vnet_name
@@ -33,7 +33,7 @@ resource "azurerm_kubernetes_cluster" "cluster" {
 
   kubernetes_version = "1.23.5"
 
-  node_resource_group = azurerm_resource_group.node_rg.name
+  node_resource_group = "${var.aks_name}-node-rg"
 
   open_service_mesh_enabled = false
 
