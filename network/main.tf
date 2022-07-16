@@ -19,6 +19,7 @@ resource "azurerm_virtual_network" "main" {
   subnet {
     name           = "${var.vnet_name}-subnet-1"
     address_prefix = "10.0.1.0/24"
+    security_group = azurerm_network_security_group.main.id
   }
 
   subnet {
