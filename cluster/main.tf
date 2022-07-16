@@ -58,7 +58,7 @@ resource "azurerm_kubernetes_cluster" "cluster" {
     os_disk_type    = "Managed"
 
     pod_subnet_id  = data.azurerm_subnet.subnet1.id
-    vnet_subnet_id = data.azurerm_virtual_network.vnet.id
+    vnet_subnet_id = var.vnet_name
 
     type              = "VirtualMachineScaleSets"
     ultra_ssd_enabled = false
