@@ -40,7 +40,7 @@ resource "azurerm_kubernetes_cluster" "cluster" {
   private_cluster_enabled = false
   # private_dns_zone_id     = "System"
 
-  public_network_access_enabled     = false
+  public_network_access_enabled     = true
   role_based_access_control_enabled = true
 
   sku_tier = "Free"
