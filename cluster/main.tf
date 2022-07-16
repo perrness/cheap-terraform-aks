@@ -29,7 +29,7 @@ resource "azurerm_kubernetes_cluster" "cluster" {
   name                = var.aks_name
   location            = azurerm_resource_group.main.location
   resource_group_name = azurerm_resource_group.main.name
-  dns_prefix          = "${var.aks_name}-dns"
+  dns_prefix          = var.aks_name
 
   kubernetes_version = "1.23.5"
 
@@ -53,12 +53,15 @@ resource "azurerm_kubernetes_cluster" "cluster" {
   }
 
   default_node_pool {
-    name    = "system"
+    name    = "agentpool"
     vm_size = "standard_B2s"
 
-    enable_auto_scaling = false
+    enable_auto_scaling = true
     node_count          = "1"
-    max_pods            = 125
+    max_count           = 3
+    min_count           = 1
+
+    max_pods = 125
 
     os_disk_size_gb = "32"
     os_disk_type    = "Managed"
