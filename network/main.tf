@@ -1,6 +1,6 @@
 resource "azurerm_resource_group" "main" {
   name     = "${var.vnet_name}-rg"
-  location = "northeurope"
+  location = "West Europe"
 }
 
 resource "azurerm_network_security_group" "main" {
