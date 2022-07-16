@@ -36,9 +36,9 @@ resource "azurerm_kubernetes_cluster" "cluster" {
   node_resource_group = azurerm_resource_group.node_rg.name
 
   open_service_mesh_enabled = false
-  private_cluster_enabled   = false
 
-  private_dns_zone_id = "System"
+  private_cluster_enabled = true
+  private_dns_zone_id     = "System"
 
   public_network_access_enabled     = false
   role_based_access_control_enabled = true
