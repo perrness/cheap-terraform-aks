@@ -54,7 +54,7 @@ resource "azurerm_kubernetes_cluster" "cluster" {
 
   default_node_pool {
     name    = "agentpool"
-    vm_size = "Standard_D2_v2"
+    vm_size = "standard_B2s"
 
     enable_auto_scaling = true
     node_count          = "1"
@@ -66,8 +66,8 @@ resource "azurerm_kubernetes_cluster" "cluster" {
     os_disk_size_gb = "32"
     os_disk_type    = "Managed"
 
-    pod_subnet_id  = data.azurerm_subnet.subnet1.id
-    vnet_subnet_id = data.azurerm_subnet.subnet2.id
+    # pod_subnet_id  = data.azurerm_subnet.subnet1.id
+    # vnet_subnet_id = data.azurerm_subnet.subnet2.id
 
     type              = "VirtualMachineScaleSets"
     ultra_ssd_enabled = false
