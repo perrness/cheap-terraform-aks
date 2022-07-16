@@ -1,5 +1,7 @@
 terraform {
-  backend "azurerm" {}
+  backend "azurerm" {
+    key = "cheap-terraform-aks.tfstate"
+  }
 
   required_providers {
     azurerm = {

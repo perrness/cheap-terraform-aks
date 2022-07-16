@@ -12,6 +12,7 @@ jobs:
     uses: perrness/reusable-workflows/.github/workflows/azure-plan-and-apply.yaml@main
     with:
       working_directory: ./cluster
+      default_storage_key: false
       terraform_args: >-
         -var-file="../config.tfvars"
     secrets: inherit
