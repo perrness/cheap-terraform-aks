@@ -1,4 +1,4 @@
-name: 'Network - Plan and Apply'
+name: 'Network - Plan and Destroy'
 
 on:
   workflow_dispatch:
