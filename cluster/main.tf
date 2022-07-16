@@ -1,24 +1,24 @@
 resource "azurerm_resource_group" "main" {
-  name     = "cheap-aks-rg"
+  name     = "${var.aks_name}-rg"
   location = "northeurope"
 }
 
 resource "azurerm_resource_group" "node_rg" {
-  name     = "cheap-aks-node-rg"
+  name     = "${var.aks_name}-node-rg"
   location = "northeurope"
 }
 
 data "azurerm_subnet" "subnet1" {
-  name                 = "cheap-subnet-1"
-  virtual_network_name = "cheap-virtual-network"
-  resource_group_name  = "cheap-virtual-network-rg"
+  name                 = "${var.vnet_name}-subnet-1"
+  virtual_network_name = var.vnet_name
+  resource_group_name  = "${var.vnet_name}-rg"
 }
 
 resource "azurerm_kubernetes_cluster" "cluster" {
-  name                = "cheap-aks"
+  name                = var.aks_name
   location            = azurerm_resource_group.main.location
   resource_group_name = azurerm_resource_group.main.name
-  dns_prefix          = "cheap-aks-dns"
+  dns_prefix          = "${var.aks_name}-dns"
 
   kubernetes_version = "1.25"
 
