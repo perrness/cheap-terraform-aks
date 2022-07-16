@@ -13,5 +13,5 @@ jobs:
     with:
       working_directory: ./network
       terraform_args: >-
-        -var-file="config.tfvars"
+        -var-file="../config.tfvars"
     secrets: inherit
