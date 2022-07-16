@@ -12,4 +12,6 @@ jobs:
     uses: perrness/reusable-workflows/.github/workflows/azure-plan-and-apply.yaml@main
     with:
       working_directory: ./network
+      terraform_args: >-
+        -var-file="config.tfvars"
     secrets: inherit
