@@ -3,16 +3,6 @@ resource "azurerm_resource_group" "main" {
   location = var.location
 }
 
-# resource "azurerm_resource_group" "node_rg" {
-#   name     = "${var.aks_name}-node-rg"
-#   location = "northeurope"
-# }
-
-# data "azurerm_virtual_network" "vnet" {
-#   name                = var.vnet_name
-#   resource_group_name = "${var.vnet_name}-rg"
-# }
-
 data "azurerm_subnet" "subnet1" {
   name                 = "${var.vnet_name}-subnet-1"
   virtual_network_name = var.vnet_name
