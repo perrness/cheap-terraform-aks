@@ -1,4 +1,4 @@
-name: 'Cluster - Plan and Apply'
+name: 'Network - Plan and Apply'
 
 on:
   workflow_dispatch:
