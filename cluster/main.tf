@@ -59,13 +59,14 @@ resource "azurerm_kubernetes_cluster" "cluster" {
   }
 
   network_profile {
-    network_plugin    = "azure"
-    network_mode      = "transparent"
-    network_policy    = "azure"
-    load_balancer_sku = "basic"
-    service_cidr      = "10.0.1.0/24"
-    dns_service_ip    = "10.0.1.12"
-    ip_versions       = ["IPv4"]
+    network_plugin     = "azure"
+    network_mode       = "transparent"
+    network_policy     = "azure"
+    load_balancer_sku  = "basic"
+    docker_bridge_cidr = "172.17.0.1/16"
+    service_cidr       = "10.0.1.0/24"
+    dns_service_ip     = "10.0.1.12"
+    ip_versions        = ["IPv4"]
   }
 
   identity {
