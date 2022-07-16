@@ -20,7 +20,7 @@ resource "azurerm_kubernetes_cluster" "cluster" {
   resource_group_name = azurerm_resource_group.main.name
   dns_prefix          = "${var.aks_name}-dns"
 
-  kubernetes_version = "1.25"
+  kubernetes_version = "1.23.5"
 
   node_resource_group = azurerm_resource_group.node_rg.name
 
