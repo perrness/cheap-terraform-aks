@@ -1,6 +1,6 @@
 resource "azurerm_resource_group" "main" {
   name     = "${var.aks_name}-rg"
-  location = "northeurope"
+  location = "West Europe"
 }
 
 # resource "azurerm_resource_group" "node_rg" {
