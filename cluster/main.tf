@@ -37,8 +37,8 @@ resource "azurerm_kubernetes_cluster" "cluster" {
 
   open_service_mesh_enabled = false
 
-  private_cluster_enabled = true
-  private_dns_zone_id     = "System"
+  private_cluster_enabled = false
+  private_dns_zone_id     = ""
 
   public_network_access_enabled     = false
   role_based_access_control_enabled = true
