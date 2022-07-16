@@ -29,18 +29,20 @@ resource "azurerm_kubernetes_cluster" "cluster" {
 
   private_dns_zone_id = "System"
 
-  public_network_access_enabled = false
+  public_network_access_enabled     = false
+  role_based_access_control_enabled = true
 
   sku_tier = "Free"
 
   auto_scaler_profile {
-    balance_similar_node_groups = false
-    expander                    = "least-waste"
-    scale_down_delay_after_add  = "5m"
+    max_graceful_termination_sec = 300
+    balance_similar_node_groups  = false
+    expander                     = "least-waste"
+    scale_down_delay_after_add   = "5m"
   }
 
   default_node_pool {
-    name    = "default"
+    name    = "system"
     vm_size = "standard_B2s"
 
     enable_auto_scaling = false
