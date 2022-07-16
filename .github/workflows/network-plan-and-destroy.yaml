@@ -12,7 +12,6 @@ jobs:
     uses: perrness/reusable-workflows/.github/workflows/azure-plan-and-destroy.yaml@main
     with:
       working_directory: ./network
-      default_storage_key: false
       terraform_args: >-
         -var-file="../config.tfvars"
     secrets: inherit
