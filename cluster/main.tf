@@ -1,6 +1,6 @@
 resource "azurerm_resource_group" "main" {
   name     = "${var.aks_name}-rg"
-  location = "West Europe"
+  location = var.location
 }
 
 # resource "azurerm_resource_group" "node_rg" {
@@ -79,8 +79,8 @@ resource "azurerm_kubernetes_cluster" "cluster" {
     network_policy     = "azure"
     load_balancer_sku  = "basic"
     docker_bridge_cidr = "172.17.0.1/16"
-    service_cidr       = "10.0.3.0/24"
-    dns_service_ip     = "10.0.3.12"
+    service_cidr       = "10.0.0.0/24"
+    dns_service_ip     = "10.0.0.10"
     ip_versions        = ["IPv4"]
   }
 
