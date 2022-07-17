@@ -40,6 +40,20 @@ resource "kubernetes_namespace" "linkerd" {
   }
 }
 
+resource "kubernetes_namespace" "linkerd_viz" {
+  metadata {
+    annotations = {
+      name = "example-annotation"
+    }
+
+    labels = {
+      mylabel = "label-value"
+    }
+
+    name = "linkerd-viz"
+  }
+}
+
 resource "kubernetes_namespace" "apps" {
   metadata {
     annotations = {
