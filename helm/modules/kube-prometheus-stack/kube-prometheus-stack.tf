@@ -11,8 +11,10 @@ locals {
     prometheus:
       enabled: true
     prometheusOperator:
+      enabled: true
       admissionWebhooks:
-        certManager: true
+        certManager: 
+          enabled: true
     prometheusSpec:
       serviceMonitorSelector:
       matchLabels:
