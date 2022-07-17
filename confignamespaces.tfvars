@@ -4,5 +4,6 @@ namespaces = [
   "monitoring",
   "linkerd",
   "linkerd-viz",
+  "linkerd-cni",
   "apps"
 ]
