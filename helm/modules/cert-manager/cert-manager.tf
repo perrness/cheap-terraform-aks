@@ -1,22 +1,21 @@
-# locals {
-#   values = <<EOT
-#     namespaceOverride: monitoring
-#     grafana:
-#       namespaceOverride: monitoring
-#       adminPassword: admin
-#     kube-state-metrics:
-#       namespaceOverride: monitoring
-#     prometheus-node-exporter:
-#       namespaceOverride: monitoring
-#     prometheus:
-#       enabled: true
-#     prometheusSpec:
-#       serviceMonitorSelector:
-#       matchLabels:
-#         release: linkerd-cni
-#       serviceMonitorNamespaceSelector: {}
-#     EOT
-# }
+locals {
+  values = <<EOT
+    installCRDs: true
+    serviceAccount:
+      create: true
+    prometheus:
+      enabled: true
+      servicemonitor:
+        enabled: false
+        prometheusInstance: default
+        targetPort: 9402
+        path: /metrics
+        interval: 60s
+        scrapeTimeout: 30s
+        labels: {}
+        honorLabels: false
+    EOT
+}
 
 resource "helm_release" "cert_manager" {
   name       = "cert-manager"
@@ -28,7 +27,7 @@ resource "helm_release" "cert_manager" {
   cleanup_on_fail  = true
   create_namespace = false
 
-  # values = compact([
-  #   local.values
-  # ])
+  values = compact([
+    local.values
+  ])
 }

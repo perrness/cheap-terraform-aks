@@ -20,6 +20,12 @@ module "kube-prometheus-stack" {
   namespace = "monitoring"
 }
 
+module "cert-manager" {
+  source = "./modules/cert-manager"
+
+  namespace = "cert-manager"
+}
+
 # module "linkerd2-cni" {
 #   source = "./modules/linkerd-cni"
 

@@ -5,5 +5,6 @@ namespaces = [
   "linkerd",
   "linkerd-viz",
   "linkerd-cni",
+  "cert-manager",
   "apps"
 ]
