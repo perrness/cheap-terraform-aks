@@ -2,6 +2,7 @@ locals {
   values = <<EOT
     cniEnabled: true
     namespace: ${var.namespace}
+    installNamespace: false
     EOT
 }
 
