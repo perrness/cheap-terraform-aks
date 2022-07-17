@@ -75,8 +75,8 @@ resource "kubernetes_manifest" "linkerd_trust_anchor_certificate" {
     }
     spec = {
       secretName  = "linkerd-identity-issuer"
-      duration    = "48h"
-      renewBefore = "25h"
+      duration    = "48h0m0s"
+      renewBefore = "25h0m0s"
       issuerRef = {
         name = "linkerd-trust-anchor"
         kind = "Issuer"
