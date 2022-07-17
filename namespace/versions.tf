@@ -15,7 +15,9 @@ terraform {
   }
 }
 
-provider "kubernetes" {}
+provider "kubernetes" {
+  config_path = "~/.kube/config"
+}
 
 # provider "azurerm" {
 #   use_oidc = true
