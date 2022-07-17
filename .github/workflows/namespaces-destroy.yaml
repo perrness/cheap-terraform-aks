@@ -13,6 +13,7 @@ jobs:
     with:
       working_directory: ./namespace
       default_storage_key: false
-      # terraform_args: >-
-      #   -var-file="../config.tfvars"
+      use_kube_login: true
+      terraform_args: >-
+        -var-file="../config.tfvars"
     secrets: inherit
