@@ -10,6 +10,9 @@ locals {
       namespaceOverride: monitoring
     prometheus:
       enabled: true
+    prometheusOperator:
+      admissionWebhooks:
+        certManager: true
     prometheusSpec:
       serviceMonitorSelector:
       matchLabels:
