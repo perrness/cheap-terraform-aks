@@ -10,7 +10,7 @@ resource "tls_private_key" "linkerd_trust_anchor" {
 }
 
 resource "tls_self_signed_cert" "linkerd_trust_anchor" {
-  private_key_pem = tls_private_key.linkerd_trust_anchor.public_key_pem
+  private_key_pem = tls_private_key.linkerd_trust_anchor.private_key_pem
 
   subject {
     common_name  = "cheap.com"
