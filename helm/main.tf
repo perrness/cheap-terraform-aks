@@ -11,3 +11,9 @@ provider "helm" {
   client_key             = base64decode(data.azurerm_kubernetes_cluster.main.kube_config.0.client_key)
   cluster_ca_certificate = base64decode(data.azurerm_kubernetes_cluster.main.kube_config.0.cluster_ca_certificate)
 }
+
+module "kube-prometheus-stack" {
+  source = "./modules/kube-prometheus-stack"
+
+  namespace = "monitoring"
+}
