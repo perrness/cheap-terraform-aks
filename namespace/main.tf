@@ -15,7 +15,7 @@ provider "kubernetes" {
 module "namespace" {
   source = "./module"
 
-  for_each = var.namespaces
+  for_each = toset(var.namespaces)
 
-  name = each.key
+  name = each.value
 }
