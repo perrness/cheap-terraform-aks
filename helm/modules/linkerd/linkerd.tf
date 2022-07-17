@@ -1,6 +1,7 @@
 locals {
   values = <<EOT
     cniEnabled: true
+    namespace: ${var.namespace}
     EOT
 }
 
@@ -32,7 +33,8 @@ resource "tls_self_signed_cert" "linkerd_trust_anchor" {
 
 resource "kubernetes_secret" "linkerd_trust_anchor" {
   metadata {
-    name = "linkerd-trust-anchor"
+    name      = "linkerd-trust-anchor"
+    namespace = var.namespace
   }
   data = {
     "tls.crt" = tls_self_signed_cert.linkerd_trust_anchor.cert_pem
@@ -71,7 +73,7 @@ resource "kubernetes_manifest" "linkerd_trust_anchor_certificate" {
     kind       = "Certificate"
     metadata = {
       name      = "linkerd-identity-issuer"
-      namespace = "linkerd"
+      namespace = var.namespace
     }
     spec = {
       secretName  = "linkerd-identity-issuer"
@@ -102,7 +104,7 @@ resource "kubernetes_manifest" "linkerd_trust_anchor_certificate" {
 }
 
 resource "helm_release" "linkerd" {
-  name       = "linkerd2"
+  name       = "linkerd"
   repository = "https://helm.linkerd.io/stable"
   chart      = "linkerd2"
   version    = "2.11.4"
