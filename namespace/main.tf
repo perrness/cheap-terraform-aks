@@ -12,58 +12,10 @@ provider "kubernetes" {
   cluster_ca_certificate = base64decode(data.azurerm_kubernetes_cluster.main.kube_config.0.cluster_ca_certificate)
 }
 
-resource "kubernetes_namespace" "monitoring" {
-  metadata {
-    annotations = {
-      name = "example-annotation"
-    }
+module "namespace" {
+  source = "./module"
 
-    labels = {
-      mylabel = "label-value"
-    }
+  for_each = var.namespaces
 
-    name = "monitoring"
-  }
-}
-
-resource "kubernetes_namespace" "linkerd" {
-  metadata {
-    annotations = {
-      name = "example-annotation"
-    }
-
-    labels = {
-      mylabel = "label-value"
-    }
-
-    name = "linkerd"
-  }
-}
-
-resource "kubernetes_namespace" "linkerd_viz" {
-  metadata {
-    annotations = {
-      name = "example-annotation"
-    }
-
-    labels = {
-      mylabel = "label-value"
-    }
-
-    name = "linkerd-viz"
-  }
-}
-
-resource "kubernetes_namespace" "apps" {
-  metadata {
-    annotations = {
-      name = "example-annotation"
-    }
-
-    labels = {
-      mylabel = "label-value"
-    }
-
-    name = "apps"
-  }
+  name = each.key
 }
