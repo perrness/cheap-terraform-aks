@@ -1,22 +1,8 @@
-# locals {
-#   values = <<EOT
-#     namespaceOverride: monitoring
-#     grafana:
-#       namespaceOverride: monitoring
-#       adminPassword: admin
-#     kube-state-metrics:
-#       namespaceOverride: monitoring
-#     prometheus-node-exporter:
-#       namespaceOverride: monitoring
-#     prometheus:
-#       enabled: true
-#     prometheusSpec:
-#       serviceMonitorSelector:
-#       matchLabels:
-#         release: linkerd-cni
-#       serviceMonitorNamespaceSelector: {}
-#     EOT
-# }
+locals {
+  values = <<EOT
+    installNamespace: false
+    EOT
+}
 
 resource "helm_release" "linkerd_cni" {
   name       = "linkerd2-cni"
@@ -28,7 +14,7 @@ resource "helm_release" "linkerd_cni" {
   cleanup_on_fail  = true
   create_namespace = false
 
-  # values = compact([
-  #   local.values
-  # ])
+  values = compact([
+    local.values
+  ])
 }
