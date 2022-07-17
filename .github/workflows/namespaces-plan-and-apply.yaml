@@ -1,0 +1,19 @@
+name: 'Namespaces - Plan and Apply'
+
+on:
+  workflow_dispatch:
+
+permissions:
+      id-token: write
+      contents: read
+
+jobs:
+  Terraform:
+    uses: perrness/reusable-workflows/.github/workflows/azure-plan-and-apply.yaml@main
+    with:
+      working_directory: ./namespace
+      default_storage_key: false
+      use_kube_login: true
+      terraform_args: >-
+        -var-file="../config.tfvars"
+    secrets: inherit
