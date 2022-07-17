@@ -19,3 +19,9 @@ module "kube-prometheus-stack" {
 
   namespace = "monitoring"
 }
+
+module "linkerd2-cni" {
+  source = "./modules/linkerd-cni"
+
+  namespace = "linkerd-cni"
+}
