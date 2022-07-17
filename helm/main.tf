@@ -14,6 +14,13 @@ provider "helm" {
   }
 }
 
+provider "kubernetes" {
+  host                   = data.azurerm_kubernetes_cluster.main.kube_config.0.host
+  client_certificate     = base64decode(data.azurerm_kubernetes_cluster.main.kube_config.0.client_certificate)
+  client_key             = base64decode(data.azurerm_kubernetes_cluster.main.kube_config.0.client_key)
+  cluster_ca_certificate = base64decode(data.azurerm_kubernetes_cluster.main.kube_config.0.cluster_ca_certificate)
+}
+
 module "kube-prometheus-stack" {
   source = "./modules/kube-prometheus-stack"
 
@@ -26,8 +33,14 @@ module "cert-manager" {
   namespace = "cert-manager"
 }
 
-# module "linkerd2-cni" {
-#   source = "./modules/linkerd-cni"
+module "linkerd2-cni" {
+  source = "./modules/linkerd-cni"
 
-#   namespace = "linkerd-cni"
-# }
+  namespace = "linkerd-cni"
+}
+
+module "linkerd" {
+  source = "./modules/linkerd"
+
+  namespace = "linkerd"
+}
