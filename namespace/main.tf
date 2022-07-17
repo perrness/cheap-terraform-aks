@@ -25,3 +25,31 @@ resource "kubernetes_namespace" "monitoring" {
     name = "monitoring"
   }
 }
+
+resource "kubernetes_namespace" "linkerd" {
+  metadata {
+    annotations = {
+      name = "example-annotation"
+    }
+
+    labels = {
+      mylabel = "label-value"
+    }
+
+    name = "linkerd"
+  }
+}
+
+resource "kubernetes_namespace" "apps" {
+  metadata {
+    annotations = {
+      name = "example-annotation"
+    }
+
+    labels = {
+      mylabel = "label-value"
+    }
+
+    name = "apps"
+  }
+}
