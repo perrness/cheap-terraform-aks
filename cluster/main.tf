@@ -44,7 +44,7 @@ resource "azurerm_kubernetes_cluster" "cluster" {
 
   default_node_pool {
     name    = "default"
-    vm_size = "standard_B2s"
+    vm_size = "Standard_D2_v2"
 
     enable_auto_scaling = true
     node_count          = "1"
