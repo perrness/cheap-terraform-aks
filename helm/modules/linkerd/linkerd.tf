@@ -1,9 +1,8 @@
 locals {
   values = <<EOT
-    cniEnabled: false
+    cniEnabled: true
     namespace: ${var.namespace}
     installNamespace: false
-    clusterNetworks: 10.0.0.0/24,10.0.1.0/24
     EOT
 }
 
