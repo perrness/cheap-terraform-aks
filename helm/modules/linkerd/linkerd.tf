@@ -7,16 +7,20 @@ locals {
 }
 
 resource "tls_private_key" "linkerd_trust_anchor" {
-  algorithm = "RSA"
-  rsa_bits  = 4096
+  algorithm   = "ECDSA"
+  ecdsa_curve = "P256"
+}
+
+resource "tls_private_key" "linkerd_issuer" {
+  algorithm   = "ECDSA"
+  ecdsa_curve = "P256"
 }
 
 resource "tls_self_signed_cert" "linkerd_trust_anchor" {
   private_key_pem = tls_private_key.linkerd_trust_anchor.private_key_pem
 
   subject {
-    common_name  = "cheap.com"
-    organization = "Cheap AKS"
+    common_name = "root.linkerd.cluster.local"
   }
 
   validity_period_hours = 12
@@ -29,6 +33,26 @@ resource "tls_self_signed_cert" "linkerd_trust_anchor" {
 
   depends_on = [
     tls_private_key.linkerd_trust_anchor
+  ]
+}
+
+resource "tls_self_signed_cert" "linkerd_issuer" {
+  private_key_pem = tls_private_key.linkerd_issuer.private_key_pem
+
+  subject {
+    common_name = "identity.linkerd.cluster.local"
+  }
+
+  validity_period_hours = 12
+  is_ca_certificate     = true
+
+  allowed_uses = [
+    "client_auth",
+    "server_auth",
+  ]
+
+  depends_on = [
+    tls_private_key.linkerd_issuer
   ]
 }
 
@@ -124,11 +148,22 @@ resource "helm_release" "linkerd" {
   }
 
   set {
+    name  = "identity.issuer.tls.crtPEM"
+    value = tls_self_signed_cert.linkerd_issuer.cert_pem
+  }
+
+  set {
+    name  = "identity.issuer.tls.keyPEM"
+    value = tls_self_signed_cert.linkerd_issuer.private_key_pem
+  }
+
+  set {
     name  = "identity.issuer.scheme"
     value = "kubernetes.io/tls"
   }
 
   depends_on = [
-    kubernetes_manifest.linkerd_trust_anchor_certificate
+    kubernetes_manifest.linkerd_trust_anchor_certificate,
+    tls_self_signed_cert.linkerd_issuer
   ]
 }
