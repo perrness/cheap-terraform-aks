@@ -3,6 +3,7 @@ locals {
     cniEnabled: true
     namespace: ${var.namespace}
     installNamespace: false
+    controllerLogFormat: json
     EOT
 }
 
