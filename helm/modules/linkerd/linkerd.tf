@@ -28,9 +28,12 @@ resource "tls_self_signed_cert" "linkerd_trust_anchor" {
   }
 
   validity_period_hours = 168
+  early_renewal_hours   = 24 * 30 * 11
   is_ca_certificate     = true
 
   allowed_uses = [
+    "cert_signing",
+    "crl_signing",
     "client_auth",
     "server_auth",
   ]
@@ -48,9 +51,12 @@ resource "tls_self_signed_cert" "linkerd_issuer" {
   }
 
   validity_period_hours = 168
+  early_renewal_hours   = 24 * 30 * 11
   is_ca_certificate     = true
 
   allowed_uses = [
+    "cert_signing",
+    "crl_signing",
     "client_auth",
     "server_auth",
   ]
@@ -77,19 +83,17 @@ resource "kubernetes_secret" "linkerd_trust_anchor" {
 }
 
 resource "kubernetes_manifest" "linkerd_trust_anchor" {
-  manifest = {
-    "apiVersion" = "cert-manager.io/v1"
-    "kind"       = "Issuer"
-    "metadata" = {
-      "name"      = "linkerd-trust-anchor"
-      "namespace" = var.namespace
-    }
-    "spec" = {
-      "ca" = {
-        "secretName" = "linkerd-trust-anchor"
-      }
-    }
-  }
+  manifest = yamlcode(<<YAML
+    apiVersion: cert-manager.io/v1
+    kind: Issuer
+    metadata:
+      name: linkerd-trust-anchor
+      namespace: ${var.namespace}
+    spec:
+      ca:
+        secretName: linkerd-trust-anchor
+  YAML
+  )
 
   depends_on = [
     kubernetes_secret.linkerd_trust_anchor
