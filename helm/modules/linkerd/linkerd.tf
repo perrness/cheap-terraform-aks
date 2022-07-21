@@ -83,17 +83,19 @@ resource "kubernetes_secret" "linkerd_trust_anchor" {
 }
 
 resource "kubernetes_manifest" "linkerd_trust_anchor" {
-  manifest = yamlcode(<<YAML
-    apiVersion: cert-manager.io/v1
-    kind: Issuer
-    metadata:
-      name: linkerd-trust-anchor
-      namespace: ${var.namespace}
-    spec:
-      ca:
-        secretName: linkerd-trust-anchor
-  YAML
-  )
+  manifest = {
+    "apiVersion" = "cert-manager.io/v1"
+    "kind"       = "Issuer"
+    "metadata" = {
+      "name"      = "linkerd-trust-anchor"
+      "namespace" = var.namespace
+    }
+    "spec" = {
+      "ca" = {
+        "secretName" = "linkerd-trust-anchor"
+      }
+    }
+  }
 
   depends_on = [
     kubernetes_secret.linkerd_trust_anchor
