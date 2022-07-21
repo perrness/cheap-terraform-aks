@@ -5,6 +5,7 @@ locals {
     installNamespace: false
     controllerLogFormat: plain
     controllerLogLevel: debug
+    enableEndpointSlices: false
     proxy:
       logFormat: json
     EOT
