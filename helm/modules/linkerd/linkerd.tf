@@ -23,7 +23,7 @@ resource "tls_self_signed_cert" "linkerd_trust_anchor" {
     common_name = "root.linkerd.cluster.local"
   }
 
-  validity_period_hours = 12
+  validity_period_hours = 168
   is_ca_certificate     = true
 
   allowed_uses = [
@@ -43,7 +43,7 @@ resource "tls_self_signed_cert" "linkerd_issuer" {
     common_name = "identity.linkerd.cluster.local"
   }
 
-  validity_period_hours = 12
+  validity_period_hours = 168
   is_ca_certificate     = true
 
   allowed_uses = [
