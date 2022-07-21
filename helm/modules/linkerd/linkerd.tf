@@ -1,6 +1,6 @@
 locals {
   values = <<EOT
-    cniEnabled: true
+    cniEnabled: false
     namespace: ${var.namespace}
     installNamespace: false
     controllerLogFormat: json
