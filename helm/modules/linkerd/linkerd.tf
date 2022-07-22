@@ -6,7 +6,10 @@ locals {
     controllerLogFormat: json
     controllerLogLevel: debug
     enableEndpointSlices: true
+    policyController:
+      logLevel: linkerd=info,warn,debug
     proxy:
+      logLevel: debug,linkerd=info
       logFormat: json
     EOT
 }
