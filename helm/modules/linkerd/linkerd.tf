@@ -9,6 +9,7 @@ locals {
     policyController:
       logLevel: linkerd=info,warn,debug
     proxy:
+      await: false
       logLevel: debug,linkerd=info
       logFormat: json
     EOT
