@@ -3,9 +3,9 @@ locals {
     cniEnabled: true
     namespace: ${var.namespace}
     installNamespace: false
-    controllerLogFormat: plain
+    controllerLogFormat: json
     controllerLogLevel: debug
-    enableEndpointSlices: false
+    enableEndpointSlices: true
     proxy:
       logFormat: json
     EOT
