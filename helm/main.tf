@@ -39,8 +39,8 @@ module "linkerd-cni" {
   namespace = "linkerd-cni"
 }
 
-# module "linkerd" {
-#   source = "./modules/linkerd"
+module "linkerd" {
+  source = "./modules/linkerd"
 
-#   namespace = "linkerd"
-# }
+  namespace = "linkerd"
+}
