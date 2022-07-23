@@ -21,11 +21,11 @@ provider "kubernetes" {
   cluster_ca_certificate = base64decode(data.azurerm_kubernetes_cluster.main.kube_config.0.cluster_ca_certificate)
 }
 
-# module "kube-prometheus-stack" {
-#   source = "./modules/kube-prometheus-stack"
+module "kube-prometheus-stack" {
+  source = "./modules/kube-prometheus-stack"
 
-#   namespace = "monitoring"
-# }
+  namespace = "monitoring"
+}
 
 module "cert-manager" {
   source = "./modules/cert-manager"
