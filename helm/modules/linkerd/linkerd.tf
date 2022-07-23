@@ -254,7 +254,6 @@ resource "kubernetes_manifest" "linkerd_policy_validator" {
       dnsNames = [
         "linkerd-policy-validator.linkerd.svc"
       ]
-      isCA = "false"
       privateKey = {
         algorithm = "ECDSA"
         encoding  = "PKCS8"
@@ -290,7 +289,6 @@ resource "kubernetes_manifest" "linkerd_proxy_injector" {
       dnsNames = [
         "linkerd-proxy-injector.linkerd.svc"
       ]
-      isCA = "false"
       privateKey = {
         algorithm = "ECDSA"
       }
@@ -325,7 +323,6 @@ resource "kubernetes_manifest" "linkerd_sp_validator_certificate" {
       dnsNames = [
         "linkerd-sp-validator.linkerd.svc"
       ]
-      isCA = false
       privateKey = {
         algorithm = "ECDSA"
       }
