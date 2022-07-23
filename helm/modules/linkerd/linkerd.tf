@@ -53,15 +53,24 @@ resource "tls_self_signed_cert" "linkerd_trust_anchor" {
   ]
 }
 
-resource "tls_self_signed_cert" "linkerd_issuer" {
+resource "tls_cert_request" "linkerd_issuer" {
   private_key_pem = tls_private_key.linkerd_issuer.private_key_pem
 
   subject {
     common_name = "identity.linkerd.cluster.local"
   }
 
+  depends_on = [
+    tls_private_key.linkerd_issuer
+  ]
+}
+
+resource "tls_locally_signed_cert" "linkerd_issuer" {
+  cert_request_pem   = tls_cert_request.linkerd_issuer.cert_request_pem
+  ca_private_key_pem = tls_private_key.linkerd_trust_anchor.private_key_pem
+  ca_cert_pem        = tls_self_signed_cert.linkerd_trust_anchor.cert_pem
+
   validity_period_hours = 168
-  early_renewal_hours   = 154
   is_ca_certificate     = true
 
   allowed_uses = [
@@ -72,9 +81,32 @@ resource "tls_self_signed_cert" "linkerd_issuer" {
   ]
 
   depends_on = [
-    tls_private_key.linkerd_issuer
+    tls_cert_request.linkerd_issuer
   ]
 }
+
+# resource "tls_self_signed_cert" "linkerd_issuer" {
+#   private_key_pem = tls_private_key.linkerd_issuer.private_key_pem
+
+#   subject {
+#     common_name = "identity.linkerd.cluster.local"
+#   }
+
+#   validity_period_hours = 168
+#   early_renewal_hours   = 154
+#   is_ca_certificate     = true
+
+#   allowed_uses = [
+#     "cert_signing",
+#     "crl_signing",
+#     "client_auth",
+#     "server_auth",
+#   ]
+
+#   depends_on = [
+#     tls_private_key.linkerd_issuer
+#   ]
+# }
 
 resource "tls_self_signed_cert" "linkerd_webhook" {
   private_key_pem = tls_private_key.linkerd_webhook.private_key_pem
@@ -333,12 +365,12 @@ resource "helm_release" "linkerd" {
 
   set {
     name  = "identity.issuer.tls.crtPEM"
-    value = tls_self_signed_cert.linkerd_issuer.cert_pem
+    value = tls_locally_signed_cert.linkerd_issuer.cert_pem
   }
 
   set {
     name  = "identity.issuer.tls.keyPEM"
-    value = tls_self_signed_cert.linkerd_issuer.private_key_pem
+    value = tls_private_key.linkerd_issuer.private_key_pem
   }
 
   set {
@@ -378,7 +410,7 @@ resource "helm_release" "linkerd" {
 
   depends_on = [
     kubernetes_manifest.linkerd_trust_anchor_certificate,
-    tls_self_signed_cert.linkerd_issuer,
+    tls_locally_signed_cert.linkerd_issuer,
     kubernetes_manifest.linkerd_webhook,
     tls_self_signed_cert.linkerd_webhook
   ]
