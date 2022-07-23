@@ -33,14 +33,14 @@ module "cert-manager" {
   namespace = "cert-manager"
 }
 
-module "linkerd2-cni" {
+module "linkerd-cni" {
   source = "./modules/linkerd-cni"
 
   namespace = "linkerd-cni"
 }
 
-module "linkerd" {
-  source = "./modules/linkerd"
+# module "linkerd" {
+#   source = "./modules/linkerd"
 
-  namespace = "linkerd"
-}
+#   namespace = "linkerd"
+# }
