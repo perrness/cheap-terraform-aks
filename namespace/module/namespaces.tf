@@ -1,7 +1,7 @@
 resource "kubernetes_namespace" "namespace" {
   metadata {
     # annotations = {
-    #   linkerd.io / inject = "enabled"
+    #   "linkerd.io/inject" = "enabled"
     # }
 
     labels = {
