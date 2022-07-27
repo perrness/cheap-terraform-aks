@@ -5,7 +5,7 @@ resource "kubernetes_namespace" "namespace" {
     }
 
     labels = {
-      release = "kube-prometheus-stack"
+      "prometheus" = "enabled"
     }
 
     name = var.name
