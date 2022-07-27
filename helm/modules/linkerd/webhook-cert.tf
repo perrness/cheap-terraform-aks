@@ -20,10 +20,6 @@ resource "tls_self_signed_cert" "linkerd_webhook" {
     "client_auth",
     "server_auth",
   ]
-
-  depends_on = [
-    tls_private_key.linkerd_webhook
-  ]
 }
 
 resource "kubernetes_secret" "linkerd_webhook" {
@@ -37,10 +33,6 @@ resource "kubernetes_secret" "linkerd_webhook" {
     "tls.crt" = tls_self_signed_cert.linkerd_webhook.cert_pem
     "tls.key" = tls_private_key.linkerd_webhook.private_key_pem # key used to generate Certificate Request
   }
-
-  depends_on = [
-    tls_private_key.linkerd_webhook
-  ]
 }
 
 resource "kubernetes_manifest" "linkerd_webhook" {
@@ -57,9 +49,6 @@ resource "kubernetes_manifest" "linkerd_webhook" {
       }
     }
   }
-  depends_on = [
-    kubernetes_secret.linkerd_webhook
-  ]
 }
 
 resource "kubernetes_manifest" "linkerd_policy_validator" {
@@ -91,10 +80,6 @@ resource "kubernetes_manifest" "linkerd_policy_validator" {
       ]
     }
   }
-
-  depends_on = [
-    kubernetes_manifest.linkerd_webhook
-  ]
 }
 
 resource "kubernetes_manifest" "linkerd_proxy_injector" {
@@ -125,10 +110,6 @@ resource "kubernetes_manifest" "linkerd_proxy_injector" {
       ]
     }
   }
-
-  depends_on = [
-    kubernetes_manifest.linkerd_webhook
-  ]
 }
 
 resource "kubernetes_manifest" "linkerd_sp_validator_certificate" {
@@ -159,8 +140,4 @@ resource "kubernetes_manifest" "linkerd_sp_validator_certificate" {
       ]
     }
   }
-
-  depends_on = [
-    kubernetes_manifest.linkerd_webhook
-  ]
 }

@@ -73,11 +73,4 @@ resource "helm_release" "linkerd" {
     name  = "profileValidator.externalSecret"
     value = "true"
   }
-
-  depends_on = [
-    kubernetes_manifest.linkerd_trust_anchor_certificate,
-    tls_locally_signed_cert.linkerd_issuer,
-    kubernetes_manifest.linkerd_webhook,
-    tls_self_signed_cert.linkerd_webhook
-  ]
 }

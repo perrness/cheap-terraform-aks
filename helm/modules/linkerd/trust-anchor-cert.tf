@@ -14,10 +14,6 @@ resource "tls_cert_request" "linkerd_issuer" {
   subject {
     common_name = "identity.linkerd.cluster.local"
   }
-
-  depends_on = [
-    tls_private_key.linkerd_issuer
-  ]
 }
 
 resource "tls_self_signed_cert" "linkerd_trust_anchor" {
@@ -53,10 +49,6 @@ resource "tls_locally_signed_cert" "linkerd_issuer" {
     "client_auth",
     "server_auth",
   ]
-
-  depends_on = [
-    tls_cert_request.linkerd_issuer
-  ]
 }
 
 resource "kubernetes_secret" "linkerd_trust_anchor" {
@@ -69,10 +61,6 @@ resource "kubernetes_secret" "linkerd_trust_anchor" {
     "tls.key" = tls_private_key.linkerd_trust_anchor.private_key_pem # key used to generate Certificate Request
   }
   type = "kubernetes.io/tls"
-
-  depends_on = [
-    tls_self_signed_cert.linkerd_trust_anchor
-  ]
 }
 
 resource "kubernetes_manifest" "linkerd_trust_anchor" {
@@ -89,10 +77,6 @@ resource "kubernetes_manifest" "linkerd_trust_anchor" {
       }
     }
   }
-
-  depends_on = [
-    kubernetes_secret.linkerd_trust_anchor
-  ]
 }
 
 resource "kubernetes_manifest" "linkerd_trust_anchor_certificate" {
@@ -125,8 +109,4 @@ resource "kubernetes_manifest" "linkerd_trust_anchor_certificate" {
       ]
     }
   }
-
-  depends_on = [
-    kubernetes_manifest.linkerd_trust_anchor
-  ]
 }
