@@ -48,5 +48,5 @@ module "linkerd" {
 module "linkerd-viz" {
   source = "./modules/linkerd-viz"
 
-  namespace = "linkerd-viz"
+  namespace = "viz"
 }

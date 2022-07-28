@@ -3,7 +3,7 @@ aks_name = "cheap-aks"
 namespaces = [
   "monitoring",
   "linkerd",
-  "linkerd-viz",
+  "viz",
   "linkerd-cni",
   "cert-manager",
   "apps"

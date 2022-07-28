@@ -1,8 +1,8 @@
 locals {
   values = <<EOT
-    installNamespace: true
+    installNamespace: false
     defaultLogFormat: json
-    namespace: linkerd-viz
+    namespace: viz
     linkerdNamespace: linkerd
     EOT
 }
